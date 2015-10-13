@@ -1,5 +1,8 @@
 package com;
 
+import java.util.List;
+import java.util.Random;
+
 /**
 * I'm glad to share my knowledge with you all.
 * 今天讲女娲造人的故事，这个故事梗概是这样的：
@@ -27,4 +30,19 @@ public class HumanFactory {
 		}
 		return human;
 	}
+	
+	//女娲生气了，把一团泥巴塞到八卦炉，哎产生啥人类就啥人类
+	public static Human createHuman(){
+	Human human=null; //定义一个类型的人类
+	//首先是获得有多少个实现类，多少个人类
+	List<Class> concreteHumanList =
+	ClassUtils.getAllClassByInterface(Human.class); //定义了多少人类
+	//八卦炉自己开始想烧出什么人就什么人
+	Random random = new Random();
+	int rand = random.nextInt(concreteHumanList.size());
+	human = createHuman(concreteHumanList.get(rand));
+	return human;
+	}
+	
+	
 }

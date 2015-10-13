@@ -32,6 +32,17 @@ public class NvWa {
 		yellowHuman.cry();
 		yellowHuman.laugh();
 		yellowHuman.talk();
+		
+		
+		//女娲烦躁了，爱是啥人类就是啥人类，烧吧
+		for(int i=0;i<20;i++){
+			System.out.println("\n\n------------随机产生人类了-----------------" + i);
+			Human human = HumanFactory.createHuman();
+			human.cry();
+			human.laugh();
+			human.talk();
+		}
+		
 	}
-
+	
 }
