@@ -1,5 +1,6 @@
 package com;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -13,11 +14,25 @@ import java.util.Random;
 * 我们把这个生产人的过程用Java程序表现出来：
 */
 public class HumanFactory {
+	
+	
+	private static HashMap<String,Human> humans = new HashMap<String,Human>();
+	
 	//定一个烤箱，泥巴塞进去，人就出来，这个太先进了
 	public static Human createHuman(Class c){
 		Human human=null; //定义一个类型的人类
 		try {
-			human = (Human)Class.forName(c.getName()).newInstance(); //产生一个人类
+//			human = (Human)Class.forName(c.getName()).newInstance(); //产生一个人类
+			
+			//如果MAP中有，则直接从取出，不用初始化了
+			if(humans.containsKey(c.getSimpleName())){
+				human = humans.get(c.getSimpleName());
+			}else{
+				human = (Human)Class.forName(c.getName()).newInstance();
+				//放到MAP中
+				humans.put(c.getSimpleName(), human);
+			}
+			
 		} catch (InstantiationException e) {
 			//你要是不说个人类颜色的话，没法烤，要白的黑，你说话了才好烤
 			System.out.println("必须指定人类的颜色");
@@ -33,15 +48,15 @@ public class HumanFactory {
 	
 	//女娲生气了，把一团泥巴塞到八卦炉，哎产生啥人类就啥人类
 	public static Human createHuman(){
-	Human human=null; //定义一个类型的人类
-	//首先是获得有多少个实现类，多少个人类
-	List<Class> concreteHumanList =
-	ClassUtils.getAllClassByInterface(Human.class); //定义了多少人类
-	//八卦炉自己开始想烧出什么人就什么人
-	Random random = new Random();
-	int rand = random.nextInt(concreteHumanList.size());
-	human = createHuman(concreteHumanList.get(rand));
-	return human;
+		Human human=null; //定义一个类型的人类
+		//首先是获得有多少个实现类，多少个人类
+		List<Class> concreteHumanList =
+				ClassUtils.getAllClassByInterface(Human.class); //定义了多少人类
+		//八卦炉自己开始想烧出什么人就什么人
+		Random random = new Random();
+		int rand = random.nextInt(concreteHumanList.size());
+		human = createHuman(concreteHumanList.get(rand));
+		return human;
 	}
 	
 	
