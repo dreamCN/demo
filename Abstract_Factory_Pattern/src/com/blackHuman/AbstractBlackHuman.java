@@ -4,7 +4,7 @@ import com.Human;
 
 public abstract class AbstractBlackHuman implements Human {
 
-	public void cry() {
+	public void cry() { 
 		System.out.println("ºÚÈË»á¿Ş");
 	}
 	
